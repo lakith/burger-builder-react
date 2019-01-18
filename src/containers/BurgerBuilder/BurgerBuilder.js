@@ -1,7 +1,9 @@
 import React,{Component} from 'react';
 import Auxiliary from '../../hoc/Auxiliary';
 import Burger from '../../components/Burger/Burger';
-import BuildControls from '../../components/Burger/BuildControls/BuildControls'
+import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummery from '../../components/Burger/OrderSummery/OrderSummery';
 
 const INGREDIENT_PRICE = {
     salad: 100,
@@ -19,7 +21,8 @@ class BurgerBuilder extends Component {
             meat : 0
         },
         totalPrice : 50,
-        perchasable:false
+        perchasable:false,
+        perchasing:false
     }
 
     updatePerchaseState (ingrediants) {
@@ -41,6 +44,10 @@ class BurgerBuilder extends Component {
         const newPrice = oldPrice+price;
         this.setState({ingrediants:updatedIngrediants, totalPrice:newPrice});
         this.updatePerchaseState(updatedIngrediants);
+    }
+
+    perchaseHandler = () =>{
+        this.setState({perchasing:true});
     }
 
     removeIngredientsHandler = (type) =>{
@@ -68,6 +75,9 @@ class BurgerBuilder extends Component {
 
         return (
             <Auxiliary>
+                <Modal show ={this.state.perchasing}>
+                    <OrderSummery ingrediants={this.state.ingrediants}/>
+                </Modal>
                 <Burger ingrediants = {this.state.ingrediants} />
                 <BuildControls
                     ingrediantsAdded = {this.addIngredientHandler}
@@ -75,6 +85,7 @@ class BurgerBuilder extends Component {
                     disabled = {disabledInfo}
                     price = {this.state.totalPrice}
                     perchasable = {this.state.perchasable}
+                    orderd = {this.perchaseHandler}
                 />
             </Auxiliary>
         )
