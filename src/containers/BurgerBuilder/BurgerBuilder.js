@@ -50,6 +50,14 @@ class BurgerBuilder extends Component {
         this.setState({perchasing:true});
     }
 
+    perchaseCanselHandler = () =>{
+        this.setState({perchasing:false});
+    }
+
+    perchaseContinueHandler = ()=>{
+        alert('You may continue');
+    }
+
     removeIngredientsHandler = (type) =>{
         const oldCount = this.state.ingrediants[type];
         if(oldCount > 0){
@@ -66,6 +74,8 @@ class BurgerBuilder extends Component {
         }
     }
 
+
+
     render() {
 
         const disabledInfo = {...this.state.ingrediants};
@@ -75,8 +85,11 @@ class BurgerBuilder extends Component {
 
         return (
             <Auxiliary>
-                <Modal show ={this.state.perchasing}>
-                    <OrderSummery ingrediants={this.state.ingrediants}/>
+                <Modal show ={this.state.perchasing} modelClosed={this.perchaseCanselHandler}>
+                    <OrderSummery ingrediants={this.state.ingrediants}
+                     purchaseCanceled = {this.perchaseCanselHandler}
+                     purchaseContinued = {this.perchaseContinueHandler}
+                    />
                 </Modal>
                 <Burger ingrediants = {this.state.ingrediants} />
                 <BuildControls
