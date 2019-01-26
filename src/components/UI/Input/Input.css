@@ -10,7 +10,7 @@
     margin-bottom: 8px;
 }
 
-.InputElement{
+.InputElementStyle{
     outline: none;
     border:1px solid #ccc;
     background-color: white;
@@ -21,8 +21,18 @@
     box-sizing: border-box;
 }
 
-.InputElement:focus{
+.InputElementStyle:focus{
     outline: none;
     background-color: #ccc;
 
 }
+
+.Invalid{
+    border: 1px solid red;
+    background-color: #FDA49A;
+}
+
+.ValidationError {
+    color: red;
+    margin: 5px 0;
+} 
