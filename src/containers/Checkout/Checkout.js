@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Route} from 'react-router-dom';
+import {Route,Redirect} from 'react-router-dom';
 import {connect} from 'react-redux'
 
 import CheckoutSummery from '../../order/CheckoutSummery/CheckoutSummery'
@@ -36,31 +36,38 @@ class Checkout extends Component {
     }
 
     render() { 
-        return ( 
-            <div>
+
+        let summery = <Redirect to="/" />
+
+        if(this.props.ing){
+            const purchaseRedirect = this.props.purchased ? <Redirect to ="/" /> : null ; 
+            summery = (
+             <div>
+                {purchaseRedirect}
                 <CheckoutSummery
                  ingrediants={this.props.ing}
                  canselHandler={this.canselHandler}
                  continueHandler={this.continueHandler}/>
+
                 <Route path = {this.props.match.path + '/content-data'} 
                         component={ContactData}
                 />
             </div>
-        )
+            )
+        }
+
+        return summery;
+           
+        
     }
 }
 
 const mapStateToProps = state =>{
     return {
-        ing: state.ingrediants,
-        price: state.totalPrice
+        ing: state.burgerBuilder.ingrediants,
+        price: state.burgerBuilder.totalPrice,
+        purchased:state.order.purchased
     }
 }
-
-// const mapDispatchToProps = dispatch =>{
-//     return{
-
-//     }
-// }
 
 export default connect(mapStateToProps,null)(Checkout);

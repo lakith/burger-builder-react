@@ -14,7 +14,7 @@ const burger = (props)=>{
                         })
                     }).reduce((accumilator,currentValue)=>accumilator.concat(currentValue),[]);
 
-                    console.log(trasnformedIngrediants);
+                   // console.log(trasnformedIngrediants);
 
     if(trasnformedIngrediants.length === 0){
         trasnformedIngrediants = <p> Please start adding ingrediants</p>
