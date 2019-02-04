@@ -23,7 +23,7 @@ class Orders extends Component{
         // }).catch(err=>{
         //     this.setState({loading:false});
         // })
-        this.props.onOrdersLoad();
+        this.props.onOrdersLoad(this.props.token,this.props.userId);
     }
 
     render(){
@@ -50,13 +50,15 @@ class Orders extends Component{
 const mapStateToProps = (state) => {
     return {
         loading: state.order.loading,
-        orders : state.order.order
+        orders : state.order.order,
+        token : state.auth.token,
+        userId: state.auth.userId
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        onOrdersLoad : () => dispatch(actionTypes.fatchOrders())
+        onOrdersLoad : (token,userId) => dispatch(actionTypes.fatchOrders(token,userId))
     }
 }
 
