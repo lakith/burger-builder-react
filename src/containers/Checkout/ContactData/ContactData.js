@@ -8,6 +8,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
 import * as orderActions from '../../../store/actions/index'
+import {checkValidity} from '../../../shared/utility'
 
 class ContactData extends Component {
 
@@ -105,7 +106,6 @@ class ContactData extends Component {
 
     orderHandler = (event)=>{
         event.preventDefault();
-        console.log(this.props);
         
         const formData = {};
 
@@ -132,23 +132,23 @@ class ContactData extends Component {
         //     });
     }
 
-    checkValidity= (value,rules)=>{
-        let isValid = true;
+    // checkValidity= (value,rules)=>{
+    //     let isValid = true;
 
-        if(rules.required){
-            isValid = value.trim() !== '' && isValid;
-        }
+    //     if(rules.required){
+    //         isValid = value.trim() !== '' && isValid;
+    //     }
 
-        if(rules.minLength){
-            isValid = value.length >=rules.minLength && isValid;
-        }
+    //     if(rules.minLength){
+    //         isValid = value.length >=rules.minLength && isValid;
+    //     }
 
-        if(rules.maxLength){
-            isValid = value.length <=rules.maxLength && isValid;
-        }
-        //console.log(isValid);
-        return isValid;
-    }
+    //     if(rules.maxLength){
+    //         isValid = value.length <=rules.maxLength && isValid;
+    //     }
+    //     //console.log(isValid);
+    //     return isValid;
+    // }
 
     changeHandler = (event,inputIdentifier)=>{
         //console.log(event.target.value); // print the event trigger data
@@ -161,7 +161,7 @@ class ContactData extends Component {
         }
 
         updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value,updatedFormElement.validation);
+        updatedFormElement.valid = checkValidity(updatedFormElement.value,updatedFormElement.validation);
         updatedFormElement.touched = true;
         updatedOrderForm[inputIdentifier] = updatedFormElement;
 
@@ -170,7 +170,6 @@ class ContactData extends Component {
         for(let inputIdentifier in updatedOrderForm){
             formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
         }
-        console.log(formIsValid);
         this.setState({
             orderForm:updatedOrderForm,
             formIsValid:formIsValid
